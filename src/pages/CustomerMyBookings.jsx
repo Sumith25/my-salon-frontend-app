@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { fetchAppointmentsAPI } from "../api/appointmentApi";
 import { useAuthContext } from "../context/AuthContext";
-
+import { useAppointmentsApi } from "../api/appointmentsApi";
 export default function CustomerMyBookings() {
   const { user } = useAuthContext();
+  const {
+    fetchAppointmentsAPI
+  } = useAppointmentsApi();
   const [appointments, setAppointments] = useState([]);
 
   useEffect(() => {

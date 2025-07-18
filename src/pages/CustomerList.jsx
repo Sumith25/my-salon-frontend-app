@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
-import {
-  fetchCustomersAPI,
-  deleteCustomerAPI,
-  updateCustomerAPI,
-} from "../api/customerApi";
+import { useCustomerApi } from "../api/customersApi";
 
 export default function CustomerList() {
+  const { fetchCustomersAPI, deleteCustomerAPI } = useCustomerApi();
   const [customers, setCustomers] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [editData, setEditData] = useState({ name: "", email: "", phone: "", gender: "", address: "" });

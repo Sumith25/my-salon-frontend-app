@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import {
-  fetchServicesAPI,
-  addServiceAPI,
-  updateServiceAPI,
-  deleteServiceAPI,
-} from "../api/serviceApi";
+import { useServicesApi } from "../api/servicesApi";
 
 export default function ServicesAdmin() {
+  const {
+    fetchServicesAPI,
+    addServiceAPI,
+    updateServiceAPI,
+    deleteServiceAPI,
+  } = useServicesApi();
   const [services, setServices] = useState([]);
   const [newService, setNewService] = useState({ name: "", cost: "", duration: "" });
   const [editingId, setEditingId] = useState(null);

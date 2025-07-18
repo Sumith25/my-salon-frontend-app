@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { useCustomerApi } from "../api/customersApi";
 
 export default function CustomerRegistration() {
+  const { addCustomerAPI } = useCustomerApi();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -18,30 +21,20 @@ export default function CustomerRegistration() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus("");
-
     try {
-      const response = await fetch("http://localhost:5000/api/customers", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+      await addCustomerAPI(formData);
+      setStatus("Customer registered successfully!");
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        gender: "",
+        address: "",
+        password: "",
       });
-
-      if (response.ok) {
-        setStatus("Customer registered successfully!");
-        setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          gender: "",
-          address: "",
-          password: "",
-        });
-      } else {
-        setStatus("Failed to register customer.");
-      }
     } catch (error) {
       console.error(error);
-      setStatus("Error connecting to the server.");
+      setStatus(error.message || "Error connecting to the server.");
     }
   };
 
@@ -53,7 +46,7 @@ export default function CustomerRegistration() {
           type="text"
           name="name"
           placeholder="Name"
-          value={formData.name || ""}
+          value={formData.name}
           onChange={handleChange}
           required
           className="w-full border p-2"
@@ -62,7 +55,7 @@ export default function CustomerRegistration() {
           type="email"
           name="email"
           placeholder="Email"
-          value={formData.email || ""}
+          value={formData.email}
           onChange={handleChange}
           required
           className="w-full border p-2"
@@ -71,7 +64,7 @@ export default function CustomerRegistration() {
           type="text"
           name="phone"
           placeholder="Phone"
-          value={formData.phone || ""}
+          value={formData.phone}
           onChange={handleChange}
           required
           className="w-full border p-2"
@@ -80,7 +73,7 @@ export default function CustomerRegistration() {
           type="text"
           name="gender"
           placeholder="Gender"
-          value={formData.gender || ""}
+          value={formData.gender}
           onChange={handleChange}
           className="w-full border p-2"
         />
@@ -88,7 +81,7 @@ export default function CustomerRegistration() {
           type="text"
           name="address"
           placeholder="Address"
-          value={formData.address || ""}
+          value={formData.address}
           onChange={handleChange}
           className="w-full border p-2"
         />
@@ -96,7 +89,7 @@ export default function CustomerRegistration() {
           type="password"
           name="password"
           placeholder="Password"
-          value={formData.password || ""}
+          value={formData.password}
           onChange={handleChange}
           required
           className="w-full border p-2"

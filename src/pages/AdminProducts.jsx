@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import {
-  fetchProductsAPI,
-  addProductAPI,
-  updateProductAPI,
-  deleteProductAPI,
-} from "../api/productApi";
+import { useProductsApi } from "../api/productsApi";
 
 export default function AdminProducts() {
+  const {
+    fetchProductsAPI,
+    addProductAPI,
+    updateProductAPI,
+    deleteProductAPI
+  } = useProductsApi();
   const [products, setProducts] = useState([]);
   const [newProduct, setNewProduct] = useState({ name: "", price: "", quantity: "" });
   const [editingId, setEditingId] = useState(null);

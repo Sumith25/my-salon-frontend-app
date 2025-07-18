@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import {
-  fetchAppointmentsAPI,
-  deleteAppointmentAPI,
-  updateAppointmentAPI,
-} from "../api/appointmentApi";
+import { useAppointmentsApi } from "../api/appointmentsApi";
 
 export default function AdminAppointments() {
+  const {
+    fetchAppointmentsAPI,
+    addAppointmentAPI,
+    deleteAppointmentAPI,
+    updateAppointmentAPI
+  } = useAppointmentsApi();
   const [appointments, setAppointments] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [editData, setEditData] = useState({

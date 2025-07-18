@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { addAppointmentAPI } from "../api/appointmentApi";
 import { useAuthContext } from "../context/AuthContext";
-
+import { useAppointmentsApi } from "../api/appointmentsApi";
 
 export default function CustomerBookAppointment() {
   const { user } = useAuthContext();
-
+  const {
+    addAppointmentAPI
+  } = useAppointmentsApi();
   const [formData, setFormData] = useState({
     customerId: user.customerId || "",
     customerName: user.username || "",

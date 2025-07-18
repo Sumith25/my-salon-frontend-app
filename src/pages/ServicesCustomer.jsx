@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
-
+import { useServicesApi } from "../api/servicesApi";
 export default function ServicesCustomer() {
   const [services, setServices] = useState([]);
-
+  const {
+    fetchServicesAPI,
+    addServiceAPI,
+    updateServiceAPI,
+    deleteServiceAPI,
+  } = useServicesApi();
   useEffect(() => {
     fetch("http://localhost:5000/api/services")
       .then((res) => res.json())
