@@ -1,13 +1,16 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { useAuthContext } from '../context/AuthContext'; // Updated context using OIDC
 
 export default function Navbar() {
-    const { user, logout } = useAuth();
+    const { user, isAuthenticated, login, logout } = useAuthContext();
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        logout();
-        navigate('/login');
+        logout(); // Cognito Hosted UI logout
+    };
+
+    const handleLogin = () => {
+        login(); // Cognito Hosted UI login
     };
 
     return (
@@ -22,21 +25,21 @@ export default function Navbar() {
                 <Link to="/" className="text-white hover:text-gray-300">Home</Link>
                 <Link to="/services" className="text-white hover:text-gray-300">Services</Link>
 
-                {!user && (
+                {!isAuthenticated && (
                     <>
-                        <Link to="/register" className="text-white hover:text-gray-300">Customer Registration</Link>
-                        <Link to="/login" className="text-white hover:text-gray-300">Login</Link>
+                        <Link to="/register" className="text-white hover:text-gray-300">Register</Link>
+                        <button onClick={handleLogin} className="text-white hover:text-gray-300">Login</button>
                     </>
                 )}
 
-                {user?.role === 'admin' && (
+                {user?.profile?.['cognito:groups']?.includes('admin') && (
                     <>
                         <Link to="/admin" className="text-white hover:text-gray-300">Admin Dashboard</Link>
                         <button onClick={handleLogout} className="text-white hover:text-gray-300">Logout</button>
                     </>
                 )}
 
-                {user?.role === 'customer' && (
+                {user?.profile?.['cognito:groups']?.includes('customer') && (
                     <>
                         <Link to="/customer" className="text-white hover:text-gray-300">Customer Dashboard</Link>
                         <button onClick={handleLogout} className="text-white hover:text-gray-300">Logout</button>
