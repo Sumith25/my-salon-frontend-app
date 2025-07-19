@@ -7,11 +7,11 @@ import { AuthProvider as OidcAuthProvider } from "react-oidc-context"; // ✅ Co
 import { AuthProvider } from "./context/AuthContext"; // ✅ Your custom context for user object
 
 const cognitoAuthConfig = {
-  authority: "https://cognito-idp.ap-south-1.amazonaws.com/ap-south-1_W0ytLMKwS", // ✅ Your actual User Pool ID
+  authority: "https://cognito-idp.ap-south-1.amazonaws.com/ap-south-1_W0ytLMKwS",
   client_id: "1f6ch58jioma5ireu11astd3m1",
-  redirect_uri: "http://localhost:5173",
+  redirect_uri: "https://d84l1y8p4kdic.cloudfront.net",
   response_type: "code",
-  scope: "openid email phone",
+  scope: "phone openid email",
 };
 
 ReactDOM.createRoot(document.getElementById("root")).render(
