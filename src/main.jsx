@@ -7,7 +7,7 @@ import { AuthProvider as OidcAuthProvider } from "react-oidc-context"; // ✅ Co
 import { AuthProvider } from "./context/AuthContext"; // ✅ Your custom context for user object
 
 const cognitoAuthConfig = {
-  authority: "https://cognito-idp.ap-south-1.amazonaws.com/ap-south-1_W0ytLMKwS",
+  authority: "https://ap-south-1w0ytlmkws.auth.ap-south-1.amazoncognito.com",
   client_id: "1f6ch58jioma5ireu11astd3m1",
   redirect_uri: "https://d84l1y8p4kdic.cloudfront.net/",
   response_type: "code",
