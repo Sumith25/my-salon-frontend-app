@@ -1,18 +1,17 @@
 import { Navigate } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
 
-export default function ProtectedRoute({ children, allowedRole }) {
-    const { isAuthenticated, user } = useAuthContext();
+export default function ProtectedRoute({ children, role }) {
+  const { isAuthenticated, user } = useAuthContext();
 
-    if (!isAuthenticated) {
-        return <Navigate to="/login" />;
-    }
+  if (!isAuthenticated) {
+    return <Navigate to="/" replace />;
+  }
 
-    const roles = user?.profile?.['cognito:groups'] || [];
+  const groups = user?.profile?.["cognito:groups"] || [];
+  if (role && !groups.includes(role)) {
+    return <Navigate to="/" replace />;
+  }
 
-    if (!roles.includes(allowedRole)) {
-        return <Navigate to="/" />; // Or redirect somewhere safer
-    }
-
-    return children;
+  return children;
 }

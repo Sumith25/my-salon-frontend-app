@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useCustomerApi } from "../api/customersApi";
+import { useCustomersApi } from "../api/customersApi";
 
 export default function CustomerRegistration() {
-  const { addCustomerAPI } = useCustomerApi();
+  const { createCustomer } = useCustomersApi();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -22,7 +22,7 @@ export default function CustomerRegistration() {
     e.preventDefault();
     setStatus("");
     try {
-      await addCustomerAPI(formData);
+      await createCustomer(formData);
       setStatus("Customer registered successfully!");
       setFormData({
         name: "",
@@ -94,7 +94,6 @@ export default function CustomerRegistration() {
           required
           className="w-full border p-2"
         />
-
         <button type="submit" className="bg-blue-500 text-white px-4 py-2 w-full">
           Register
         </button>
